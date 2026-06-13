@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rizky Freelance – Jasa Pembuatan Website WordPress Profesional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #060B18;
+  --navy2: #0D1526;
+  --navy3: #111D35;
+  --blue: #2563EB;
+  --blue-light: #3B82F6;
+  --cyan: #06B6D4;
+  --purple: #7C3AED;
+  --grad: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+  --grad2: linear-gradient(135deg, #06B6D4 0%, #2563EB 100%);
+  --text: #F1F5F9;
+  --muted: #94A3B8;
+  --border: rgba(255,255,255,0.08);
+  --glass: rgba(255,255,255,0.04);
+  --glass2: rgba(255,255,255,0.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── LOADER ── */
+#loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--navy);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: opacity .6s ease, visibility .6s ease;
+}
+#loader.hidden { opacity: 0; visibility: hidden; }
+.loader-logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2rem; font-weight: 800;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+}
+.loader-bar { width: 200px; height: 3px; background: var(--border); border-radius: 9999px; overflow: hidden; }
+.loader-fill { height: 100%; width: 0; background: var(--grad); border-radius: 9999px; animation: fill 1.8s ease forwards; }
+@keyframes fill { to { width: 100%; } }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1rem 0;
+  transition: background .3s, backdrop-filter .3s, border-color .3s;
+}
+nav.scrolled {
+  background: rgba(6,11,24,.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.35rem; font-weight: 800;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  background: var(--grad); color: #fff; border: none; padding: .65rem 1.4rem;
+  border-radius: 8px; font-size: .875rem; font-weight: 600; cursor: pointer;
+  text-decoration: none; transition: opacity .2s, transform .2s;
+}
+.nav-cta:hover { opacity: .88; transform: translateY(-1px); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: .3s; }
+
+/* ── MOBILE NAV ── */
+.mobile-menu {
+  display: none; position: fixed; inset: 0; z-index: 99;
+  background: rgba(6,11,24,.97); backdrop-filter: blur(20px);
+  flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: var(--text); text-decoration: none; font-size: 1.3rem; font-weight: 600;
+  transition: color .2s;
+}
+.mobile-menu a:hover { color: var(--blue-light); }
+.close-menu { position: absolute; top: 1.5rem; right: 1.5rem; cursor: pointer; font-size: 1.5rem; }
+
+/* ── SECTIONS ── */
+section { padding: 6rem 0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.section-label {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(37,99,235,.12); border: 1px solid rgba(37,99,235,.25);
+  color: var(--blue-light); font-size: .8rem; font-weight: 600;
+  padding: .35rem .9rem; border-radius: 999px; letter-spacing: .05em; text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
+  line-height: 1.2; margin-bottom: 1rem;
+}
+.section-subtitle { color: var(--muted); font-size: 1.05rem; line-height: 1.7; max-width: 600px; }
+.text-center { text-align: center; }
+.text-center .section-subtitle { margin: 0 auto; }
+.grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;
+  padding-top: 5rem;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.hero-bg .glow {
+  position: absolute; border-radius: 50%; filter: blur(100px); opacity: .25;
+}
+.hero-bg .g1 { width: 600px; height: 600px; background: #2563EB; top: -200px; right: -100px; }
+.hero-bg .g2 { width: 400px; height: 400px; background: #7C3AED; bottom: 0; left: -100px; }
+.hero-bg .g3 { width: 300px; height: 300px; background: #06B6D4; top: 50%; left: 40%; transform: translate(-50%,-50%); }
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  position: relative; z-index: 1;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(6,182,212,.1); border: 1px solid rgba(6,182,212,.2);
+  color: var(--cyan); font-size: .8rem; font-weight: 600;
+  padding: .4rem 1rem; border-radius: 999px; margin-bottom: 1.5rem;
+}
+.hero-badge::before { content: '✦'; }
+.hero-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+.hero-sub { color: var(--muted); font-size: 1.1rem; line-height: 1.75; margin-bottom: 2.5rem; max-width: 520px; }
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--grad); color: #fff; border: none; padding: .85rem 1.75rem;
+  border-radius: 10px; font-size: .95rem; font-weight: 600; cursor: pointer;
+  text-decoration: none; transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 30px rgba(37,99,235,.35);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(37,99,235,.45); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: transparent; color: var(--text); border: 1px solid var(--border);
+  padding: .85rem 1.75rem; border-radius: 10px; font-size: .95rem; font-weight: 600;
+  cursor: pointer; text-decoration: none; transition: border-color .2s, background .2s;
+  backdrop-filter: blur(8px);
+}
+.btn-secondary:hover { border-color: rgba(255,255,255,.25); background: var(--glass2); }
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+}
+.stat-card {
+  background: var(--glass); border: 1px solid var(--border);
+  backdrop-filter: blur(12px); border-radius: 12px; padding: 1.25rem;
+  transition: border-color .3s;
+}
+.stat-card:hover { border-color: rgba(37,99,235,.4); }
+.stat-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2rem; font-weight: 800;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-label { color: var(--muted); font-size: .8rem; margin-top: .2rem; }
+
+/* hero visual */
+.hero-visual { position: relative; }
+.mockup-wrap {
+  position: relative; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05);
+}
+.mockup-bar {
+  background: var(--navy2); padding: .7rem 1rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.r { background: #FF5F57; }
+.dot.y { background: #FFBD2E; }
+.dot.g { background: #28CA41; }
+.url-bar {
+  flex: 1; background: var(--navy3); border-radius: 6px; padding: .3rem .75rem;
+  font-size: .75rem; color: var(--muted); margin-left: .5rem;
+}
+.mockup-screen {
+  background: var(--navy2); height: 320px; position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.mock-hero { background: var(--grad); height: 140px; display: flex; align-items: center; padding: 1.5rem; }
+.mock-hero-text { flex: 1; }
+.mock-h { background: rgba(255,255,255,.3); height: 14px; border-radius: 4px; width: 70%; margin-bottom: 8px; }
+.mock-h2 { background: rgba(255,255,255,.2); height: 10px; border-radius: 4px; width: 50%; margin-bottom: 12px; }
+.mock-btn { background: #fff; height: 28px; width: 100px; border-radius: 6px; }
+.mock-cards {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; padding: 1rem;
+  flex: 1;
+}
+.mock-card { background: var(--glass2); border: 1px solid var(--border); border-radius: 8px; padding: .75rem; }
+.mc-icon { width: 24px; height: 24px; background: var(--grad); border-radius: 6px; margin-bottom: .5rem; }
+.mc-line { background: rgba(255,255,255,.15); height: 6px; border-radius: 3px; margin-bottom: .35rem; }
+.mc-line.s { width: 60%; }
+.float-badge {
+  position: absolute; background: rgba(6,182,212,.15); border: 1px solid rgba(6,182,212,.3);
+  backdrop-filter: blur(10px); border-radius: 10px; padding: .6rem 1rem;
+  font-size: .75rem; color: var(--cyan); font-weight: 600;
+}
+.float-badge.fb1 { top: -1rem; right: -1rem; }
+.float-badge.fb2 { bottom: 3rem; left: -2rem; }
+
+/* ── TRUST ── */
+#trust { padding: 3rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.trust-text { text-align: center; color: var(--muted); font-size: .875rem; margin-bottom: 2rem; }
+.logos-track {
+  display: flex; gap: 3rem; align-items: center; justify-content: center; flex-wrap: wrap;
+}
+.logo-item {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 10px; padding: .6rem 1.4rem; color: var(--muted);
+  font-weight: 700; font-size: .9rem; letter-spacing: .05em; text-transform: uppercase;
+  transition: border-color .2s, color .2s;
+}
+.logo-item:hover { border-color: rgba(37,99,235,.4); color: var(--text); }
+
+/* ── WHY ── */
+#why { background: var(--navy2); }
+.cards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+.benefit-card {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2rem;
+  transition: border-color .3s, transform .3s, box-shadow .3s;
+  position: relative; overflow: hidden;
+}
+.benefit-card::before {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  background: linear-gradient(135deg, rgba(37,99,235,.06) 0%, rgba(124,58,237,.06) 100%);
+  transition: opacity .3s;
+}
+.benefit-card:hover { border-color: rgba(37,99,235,.35); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.3); }
+.benefit-card:hover::before { opacity: 1; }
+.card-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  background: linear-gradient(135deg, rgba(37,99,235,.2), rgba(124,58,237,.2));
+  border: 1px solid rgba(37,99,235,.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; margin-bottom: 1.25rem;
+}
+.card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
+.card-desc { color: var(--muted); font-size: .9rem; line-height: 1.65; }
+
+/* ── SERVICES ── */
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+.service-card {
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2rem; position: relative; overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+.service-card:hover { border-color: rgba(37,99,235,.4); transform: translateY(-4px); }
+.service-card .top-line {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--grad); opacity: 0; transition: opacity .3s;
+}
+.service-card:hover .top-line { opacity: 1; }
+.svc-icon { font-size: 2rem; margin-bottom: 1rem; }
+.svc-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
+.svc-desc { color: var(--muted); font-size: .88rem; line-height: 1.65; margin-bottom: 1.25rem; }
+.svc-tag {
+  display: inline-block; background: rgba(37,99,235,.1); border: 1px solid rgba(37,99,235,.2);
+  color: var(--blue-light); font-size: .75rem; font-weight: 600;
+  padding: .25rem .7rem; border-radius: 6px;
+}
+
+/* ── PORTFOLIO ── */
+#portfolio { background: var(--navy2); }
+.portfolio-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+.portfolio-card {
+  border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+  transition: border-color .3s, transform .3s; position: relative; group: true;
+}
+.portfolio-card:hover { border-color: rgba(37,99,235,.4); transform: translateY(-4px); }
+.p-thumb {
+  height: 200px; position: relative; overflow: hidden;
+}
+.p-thumb-inner {
+  width: 100%; height: 100%; display: flex; flex-direction: column;
+  transition: transform .4s;
+}
+.portfolio-card:hover .p-thumb-inner { transform: scale(1.04); }
+.p-bar { height: 24px; display: flex; align-items: center; gap: 5px; padding: 0 .75rem; }
+.p-bar .d { width: 8px; height: 8px; border-radius: 50%; }
+.p-bar .dr { background: #FF5F57; }
+.p-bar .dy { background: #FFBD2E; }
+.p-bar .dg { background: #28CA41; }
+.p-content { flex: 1; padding: .75rem; display: grid; gap: .4rem; }
+.p-row { border-radius: 4px; }
+.p-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(37,99,235,.85), rgba(124,58,237,.85));
+  opacity: 0; display: flex; align-items: center; justify-content: center;
+  transition: opacity .3s;
+}
+.portfolio-card:hover .p-overlay { opacity: 1; }
+.p-overlay a {
+  background: #fff; color: var(--navy); font-weight: 700; font-size: .85rem;
+  padding: .6rem 1.25rem; border-radius: 8px; text-decoration: none;
+  transition: transform .2s;
+}
+.p-overlay a:hover { transform: scale(1.05); }
+.p-info { background: var(--navy3); padding: 1rem 1.25rem; }
+.p-name { font-weight: 700; font-size: .95rem; margin-bottom: .2rem; }
+.p-cat { color: var(--muted); font-size: .8rem; }
+
+/* ── PRICING ── */
+.pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; align-items: start; }
+.price-card {
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: 20px; padding: 2rem; position: relative; overflow: hidden;
+  transition: transform .3s, box-shadow .3s;
+}
+.price-card:hover { transform: translateY(-4px); }
+.price-card.popular {
+  border-color: rgba(37,99,235,.5);
+  box-shadow: 0 0 0 1px rgba(37,99,235,.15), 0 20px 60px rgba(37,99,235,.15);
+}
+.pop-badge {
+  position: absolute; top: 1.25rem; right: 1.25rem;
+  background: var(--grad); color: #fff; font-size: .7rem; font-weight: 700;
+  padding: .3rem .75rem; border-radius: 999px;
+}
+.price-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--muted); margin-bottom: .75rem; }
+.price-amount {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 800;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+}
+.price-features { list-style: none; display: flex; flex-direction: column; gap: .75rem; margin-bottom: 2rem; }
+.price-features li { display: flex; align-items: center; gap: .65rem; font-size: .9rem; color: var(--muted); }
+.price-features li::before {
+  content: '✓'; min-width: 20px; height: 20px; background: rgba(37,99,235,.15);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: var(--blue-light); font-size: .75rem; font-weight: 700;
+}
+.btn-price {
+  width: 100%; padding: .85rem; border-radius: 10px; font-size: .95rem; font-weight: 600;
+  cursor: pointer; text-decoration: none; display: block; text-align: center; transition: .2s;
+}
+.btn-price.outline {
+  background: transparent; border: 1px solid var(--border); color: var(--text);
+}
+.btn-price.outline:hover { border-color: rgba(37,99,235,.4); background: var(--glass); }
+.btn-price.filled { background: var(--grad); border: none; color: #fff; box-shadow: 0 4px 20px rgba(37,99,235,.3); }
+.btn-price.filled:hover { box-shadow: 0 8px 30px rgba(37,99,235,.45); transform: translateY(-1px); }
+
+/* ── PROCESS ── */
+#process { background: var(--navy2); }
+.process-timeline {
+  display: grid; grid-template-columns: repeat(6,1fr); gap: 1rem; margin-top: 3rem; position: relative;
+}
+.process-timeline::before {
+  content: ''; position: absolute; top: 40px; left: 5%; right: 5%;
+  height: 2px; background: linear-gradient(90deg, var(--blue) 0%, var(--purple) 100%); opacity: .3;
+}
+.process-step { text-align: center; position: relative; }
+.step-num {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--grad); display: flex; align-items: center; justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.1rem;
+  margin: 0 auto 1rem; box-shadow: 0 0 0 6px rgba(37,99,235,.1);
+  position: relative; z-index: 1;
+}
+.step-title { font-weight: 700; font-size: .9rem; margin-bottom: .35rem; }
+.step-desc { color: var(--muted); font-size: .78rem; line-height: 1.5; }
+
+/* ── TESTIMONIALS ── */
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+.testi-card {
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.75rem;
+  transition: border-color .3s, transform .3s;
+}
+.testi-card:hover { border-color: rgba(37,99,235,.35); transform: translateY(-3px); }
+.stars { color: #FBBF24; font-size: 1rem; letter-spacing: 2px; margin-bottom: 1rem; }
+.testi-text { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
+.testi-person { display: flex; align-items: center; gap: .75rem; }
+.avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 1rem; color: #fff; flex-shrink: 0;
+}
+.person-name { font-weight: 700; font-size: .9rem; }
+.person-role { color: var(--muted); font-size: .78rem; }
+
+/* ── FAQ ── */
+#faq { background: var(--navy2); }
+.faq-list { max-width: 800px; margin: 3rem auto 0; display: flex; flex-direction: column; gap: 1rem; }
+.faq-item {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  transition: border-color .3s;
+}
+.faq-item.open { border-color: rgba(37,99,235,.35); }
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 1.5rem; cursor: pointer; font-weight: 600; font-size: .95rem;
+  user-select: none;
+}
+.faq-q .arrow { font-size: 1rem; color: var(--blue-light); transition: transform .3s; }
+.faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+.faq-a {
+  max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .3s;
+  color: var(--muted); font-size: .9rem; line-height: 1.7;
+  padding: 0 1.5rem;
+}
+.faq-item.open .faq-a { max-height: 200px; padding-bottom: 1.25rem; }
+
+/* ── CTA SECTION ── */
+#cta-big {
+  position: relative; overflow: hidden;
+}
+#cta-big .bg-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(37,99,235,.15) 0%, rgba(124,58,237,.15) 100%);
+}
+#cta-big .glow {
+  position: absolute; width: 500px; height: 500px; border-radius: 50%;
+  background: var(--blue); opacity: .08; filter: blur(100px);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+}
+.cta-inner { position: relative; z-index: 1; text-align: center; }
+.cta-inner .section-title { font-size: clamp(1.6rem, 4vw, 2.8rem); }
+.cta-inner .section-subtitle { margin: 1rem auto 2.5rem; }
+.cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy2); border-top: 1px solid var(--border);
+  padding: 4rem 0 2rem;
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.footer-brand .nav-logo { font-size: 1.5rem; display: block; margin-bottom: 1rem; }
+.footer-brand p { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+.social-links { display: flex; gap: .75rem; }
+.social-btn {
+  width: 36px; height: 36px; background: var(--glass); border: 1px solid var(--border);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  text-decoration: none; font-size: .9rem; transition: border-color .2s, background .2s;
+}
+.social-btn:hover { border-color: rgba(37,99,235,.4); background: var(--glass2); }
+.footer-col h4 { font-weight: 700; font-size: .95rem; margin-bottom: 1.25rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+.footer-col li a { color: var(--muted); text-decoration: none; font-size: .88rem; transition: color .2s; }
+.footer-col li a:hover { color: var(--text); }
+.footer-bottom {
+  border-top: 1px solid var(--border); padding-top: 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.footer-bottom p { color: var(--muted); font-size: .82rem; }
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-30px); transition: opacity .7s ease, transform .7s ease; }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(30px); transition: opacity .7s ease, transform .7s ease; }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ── WA FLOAT ── */
+.wa-float {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; box-shadow: 0 4px 20px rgba(37,211,102,.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; text-decoration: none;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,.4); }
+  50% { box-shadow: 0 4px 35px rgba(37,211,102,.7); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .cards-grid, .services-grid, .portfolio-grid, .pricing-grid, .testi-grid { grid-template-columns: repeat(2,1fr); }
+  .process-timeline { grid-template-columns: repeat(3,1fr); gap: 2rem; }
+  .process-timeline::before { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .cards-grid, .services-grid, .portfolio-grid, .pricing-grid, .testi-grid { grid-template-columns: 1fr; }
+  .process-timeline { grid-template-columns: repeat(2,1fr); }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  section { padding: 4rem 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">Rizky Freelance</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/6283191661596?text=Halo%2C%20saya%20ingin%20konsultasi%20pembuatan%20website" target="_blank" title="Chat WhatsApp">📱</a>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Rizky Freelance</a>
+    <ul class="nav-links">
+      <li><a href="#why">Keunggulan</a></li>
+      <li><a href="#services">Layanan</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#pricing">Harga</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a class="nav-cta" href="https://wa.me/6283191661596" target="_blank">💬 Konsultasi Gratis</a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="close-menu" id="closeMenu">✕</span>
+  <a href="#why" onclick="closeMobile()">Keunggulan</a>
+  <a href="#services" onclick="closeMobile()">Layanan</a>
+  <a href="#portfolio" onclick="closeMobile()">Portfolio</a>
+  <a href="#pricing" onclick="closeMobile()">Harga</a>
+  <a href="#faq" onclick="closeMobile()">FAQ</a>
+  <a class="btn-primary" href="https://wa.me/6283191661596" target="_blank">💬 Konsultasi Gratis</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+    <div class="glow g3"></div>
+  </div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="reveal-left">
+        <div class="hero-badge">Website Profesional · WordPress Expert</div>
+        <h1 class="hero-title">
+          Website Profesional yang Membantu Bisnis Anda <span class="grad-text">Tampil Lebih Kredibel</span> & Raih Lebih Banyak Pelanggan
+        </h1>
+        <p class="hero-sub">Saya membantu UMKM, personal brand, dan perusahaan memiliki website modern, cepat, SEO-friendly, dan siap menghasilkan penjualan — tanpa ribet.</p>
+        <div class="hero-btns">
+          <a class="btn-primary" href="https://wa.me/6283191661596?text=Halo%2C%20saya%20ingin%20konsultasi%20pembuatan%20website" target="_blank">💬 Konsultasi WhatsApp</a>
+          <a class="btn-secondary" href="#pricing">📦 Lihat Paket</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-num">150+</div>
+            <div class="stat-label">Website Selesai</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">98%</div>
+            <div class="stat-label">Kepuasan Klien</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">24/7</div>
+            <div class="stat-label">Support Aktif</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual reveal-right">
+        <div class="float-badge fb1">🚀 SEO Friendly</div>
+        <div class="mockup-wrap">
+          <div class="mockup-bar">
+            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            <div class="url-bar">🔒 yourbusiness.com</div>
+          </div>
+          <div class="mockup-screen">
+            <div class="mock-hero">
+              <div class="mock-hero-text">
+                <div class="mock-h"></div>
+                <div class="mock-h2"></div>
+                <div class="mock-btn"></div>
+              </div>
+            </div>
+            <div class="mock-cards">
+              <div class="mock-card"><div class="mc-icon"></div><div class="mc-line"></div><div class="mc-line s"></div></div>
+              <div class="mock-card"><div class="mc-icon"></div><div class="mc-line"></div><div class="mc-line s"></div></div>
+              <div class="mock-card"><div class="mc-icon"></div><div class="mc-line"></div><div class="mc-line s"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="float-badge fb2">⚡ Loading Cepat</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust">
+  <div class="container">
+    <p class="trust-text reveal">Dipercaya berbagai bisnis untuk membangun kehadiran digital yang profesional</p>
+    <div class="logos-track reveal">
+      <div class="logo-item">TokoBaju ID</div>
+      <div class="logo-item">Nusantara Tech</div>
+      <div class="logo-item">BerkasCepat</div>
+      <div class="logo-item">Mitra Kuliner</div>
+      <div class="logo-item">EduPintar</div>
+      <div class="logo-item">GreenBuild</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">✦ Keunggulan Kami</div>
+      <h2 class="section-title">Mengapa Memilih <span class="grad-text">Rizky Freelance?</span></h2>
+      <p class="section-subtitle">Setiap website yang kami buat dirancang untuk tampil profesional, bekerja cepat, dan menghasilkan konversi nyata bagi bisnis Anda.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="benefit-card reveal" style="transition-delay:.05s">
+        <div class="card-icon">🎨</div>
+        <div class="card-title">Desain Modern & Profesional</div>
+        <p class="card-desc">Tampilan website yang dirancang mengikuti tren desain terkini, membuat bisnis Anda terlihat kredibel di mata calon pelanggan.</p>
+      </div>
+      <div class="benefit-card reveal" style="transition-delay:.1s">
+        <div class="card-icon">📱</div>
+        <div class="card-title">Mobile Friendly</div>
+        <p class="card-desc">100% responsif di semua perangkat — smartphone, tablet, dan desktop. Pastikan pengunjung nyaman dari mana saja.</p>
+      </div>
+      <div class="benefit-card reveal" style="transition-delay:.15s">
+        <div class="card-icon">🔍</div>
+        <div class="card-title">SEO Friendly</div>
+        <p class="card-desc">Dioptimalkan agar mudah ditemukan di Google. Struktur konten dan teknis SEO ditangani langsung sejak tahap pembangunan.</p>
+      </div>
+      <div class="benefit-card reveal" style="transition-delay:.2s">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Loading Super Cepat</div>
+        <p class="card-desc">Website dioptimalkan untuk kecepatan tinggi, mengurangi bounce rate dan meningkatkan pengalaman pengguna secara signifikan.</p>
+      </div>
+      <div class="benefit-card reveal" style="transition-delay:.25s">
+        <div class="card-icon">💬</div>
+        <div class="card-title">Gratis Konsultasi</div>
+        <p class="card-desc">Konsultasi kebutuhan website Anda secara gratis. Kami bantu tentukan solusi terbaik sesuai tujuan dan anggaran bisnis Anda.</p>
+      </div>
+      <div class="benefit-card reveal" style="transition-delay:.3s">
+        <div class="card-icon">🛡️</div>
+        <div class="card-title">Support Setelah Selesai</div>
+        <p class="card-desc">Kami tidak menghilang setelah website jadi. Support aktif untuk memastikan website Anda selalu berjalan optimal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">✦ Layanan</div>
+      <h2 class="section-title">Solusi Website untuk <span class="grad-text">Setiap Kebutuhan</span></h2>
+      <p class="section-subtitle">Kami menyediakan berbagai jenis website profesional yang disesuaikan dengan kebutuhan dan skala bisnis Anda.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal" style="transition-delay:.05s">
+        <div class="top-line"></div>
+        <div class="svc-icon">🏢</div>
+        <div class="svc-title">Website Company Profile</div>
+        <p class="svc-desc">Representasikan perusahaan Anda secara profesional. Lengkap dengan profil, layanan, tim, dan form kontak.</p>
+        <span class="svc-tag">Paling Banyak Diminta</span>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.1s">
+        <div class="top-line"></div>
+        <div class="svc-icon">🛍️</div>
+        <div class="svc-title">Website UMKM</div>
+        <p class="svc-desc">Buka peluang lebih luas untuk usaha Anda. Tampilkan produk, harga, dan cara pemesanan secara online.</p>
+        <span class="svc-tag">Cocok untuk UKM</span>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.15s">
+        <div class="top-line"></div>
+        <div class="svc-icon">🎯</div>
+        <div class="svc-title">Landing Page</div>
+        <p class="svc-desc">Halaman tunggal yang dioptimalkan untuk konversi tinggi. Ideal untuk kampanye iklan, produk baru, atau event.</p>
+        <span class="svc-tag">Konversi Tinggi</span>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.2s">
+        <div class="top-line"></div>
+        <div class="svc-icon">👤</div>
+        <div class="svc-title">Website Personal Branding</div>
+        <p class="svc-desc">Bangun reputasi profesional Anda secara online. Ideal untuk freelancer, konsultan, dan public figure.</p>
+        <span class="svc-tag">Personal Brand</span>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.25s">
+        <div class="top-line"></div>
+        <div class="svc-icon">🏫</div>
+        <div class="svc-title">Website Sekolah</div>
+        <p class="svc-desc">Platform digital untuk institusi pendidikan. Informasi akademik, pengumuman, dan galeri kegiatan terintegrasi.</p>
+        <span class="svc-tag">Institusi Pendidikan</span>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.3s">
+        <div class="top-line"></div>
+        <div class="svc-icon">🤝</div>
+        <div class="svc-title">Website Organisasi</div>
+        <p class="svc-desc">Wujudkan identitas organisasi Anda secara digital. Lengkap dengan struktur, program kerja, dan berita terkini.</p>
+        <span class="svc-tag">Organisasi & NGO</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">✦ Portfolio</div>
+      <h2 class="section-title">Karya Terbaik <span class="grad-text">Kami</span></h2>
+      <p class="section-subtitle">Beberapa website yang telah kami bangun untuk klien dari berbagai industri.</p>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid"></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">✦ Harga</div>
+      <h2 class="section-title">Paket yang <span class="grad-text">Transparan</span></h2>
+      <p class="section-subtitle">Pilih paket yang sesuai dengan kebutuhan bisnis Anda. Semua paket bisa dikonsultasikan terlebih dahulu.</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Starter -->
+      <div class="price-card reveal" style="transition-delay:.05s">
+        <div class="price-name">🌱 Starter</div>
+        <div class="price-amount">Rp750K</div>
+        <ul class="price-features">
+          <li>4 Halaman Website</li>
+          <li>Desain Mobile Friendly</li>
+          <li>Form Kontak</li>
+          <li>Integrasi WhatsApp</li>
+          <li>Basic SEO Setup</li>
+        </ul>
+        <a class="btn-price outline" href="https://wa.me/6283191661596?text=Halo%2C%20saya%20tertarik%20Paket%20Starter" target="_blank">Pilih Paket Ini</a>
+      </div>
+      <!-- Professional -->
+      <div class="price-card popular reveal" style="transition-delay:.1s">
+        <div class="pop-badge">⭐ Paling Populer</div>
+        <div class="price-name">🚀 Professional</div>
+        <div class="price-amount">Rp1,7Jt</div>
+        <ul class="price-features">
+          <li>5 Halaman Website</li>
+          <li>Premium Design</li>
+          <li>Optimasi SEO Lengkap</li>
+          <li>Fitur Blog</li>
+          <li>Integrasi WhatsApp</li>
+          <li>Support 3 Bulan</li>
+        </ul>
+        <a class="btn-price filled" href="https://wa.me/6283191661596?text=Halo%2C%20saya%20tertarik%20Paket%20Professional" target="_blank">Pilih Paket Ini</a>
+      </div>
+      <!-- Business -->
+      <div class="price-card reveal" style="transition-delay:.15s">
+        <div class="price-name">💎 Business</div>
+        <div class="price-amount">Rp2,7Jt</div>
+        <ul class="price-features">
+          <li>7 Halaman Website</li>
+          <li>Premium Design Custom</li>
+          <li>SEO Optimization Penuh</li>
+          <li>Keamanan Website</li>
+          <li>Speed Optimization</li>
+          <li>Prioritas Support</li>
+        </ul>
+        <a class="btn-price outline" href="https://wa.me/6283191661596?text=Halo%2C%20saya%20tertarik%20Paket%20Business" target="_blank">Pilih Paket Ini</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">✦ Cara Kerja</div>
+      <h2 class="section-title">Proses Kerja yang <span class="grad-text">Terstruktur</span></h2>
+      <p class="section-subtitle">Dari konsultasi hingga website live, setiap langkah kami jalankan dengan profesional dan transparan.</p>
+    </div>
+    <div class="process-timeline">
+      <div class="process-step reveal" style="transition-delay:.05s">
+        <div class="step-num">1</div>
+        <div class="step-title">Konsultasi</div>
+        <p class="step-desc">Diskusi kebutuhan, tujuan, dan referensi desain website Anda</p>
+      </div>
+      <div class="process-step reveal" style="transition-delay:.1s">
+        <div class="step-num">2</div>
+        <div class="step-title">Perencanaan</div>
+        <p class="step-desc">Penyusunan struktur halaman, konten, dan timeline pengerjaan</p>
+      </div>
+      <div class="process-step reveal" style="transition-delay:.15s">
+        <div class="step-num">3</div>
+        <div class="step-title">Desain</div>
+        <p class="step-desc">Mockup tampilan website untuk review dan persetujuan Anda</p>
+      </div>
+      <div class="process-step reveal" style="transition-delay:.2s">
+        <div class="step-num">4</div>
+        <div class="step-title">Development</div>
+        <p class="step-desc">Proses pembangunan website WordPress secara penuh</p>
+      </div>
+      <div class="process-step reveal" style="transition-delay:.25s">
+        <div class="step-num">5</div>
+        <div class="step-title">Revisi</div>
+        <p class="step-desc">Sesi revisi bersama hingga hasilnya sesuai ekspektasi Anda</p>
+      </div>
+      <div class="process-step reveal" style="transition-delay:.3s">
+        <div class="step-num">6</div>
+        <div class="step-title">Launching</div>
+        <p class="step-desc">Website live dan siap digunakan untuk bisnis Anda!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">✦ Testimoni</div>
+      <h2 class="section-title">Apa Kata <span class="grad-text">Klien Kami</span></h2>
+      <p class="section-subtitle">Kepercayaan klien adalah aset terbesar kami. Baca pengalaman mereka bekerja sama dengan Rizky Freelance.</p>
+    </div>
+    <div class="testi-grid" id="testiGrid"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">✦ FAQ</div>
+      <h2 class="section-title">Pertanyaan yang <span class="grad-text">Sering Ditanya</span></h2>
+      <p class="section-subtitle">Temukan jawaban atas pertanyaan umum seputar jasa pembuatan website kami.</p>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<!-- CTA BIG -->
+<section id="cta-big">
+  <div class="bg-grad"></div>
+  <div class="glow"></div>
+  <div class="container">
+    <div class="cta-inner reveal">
+      <div class="section-label" style="display:inline-flex;margin-bottom:1.25rem">✦ Mulai Sekarang</div>
+      <h2 class="section-title">Siap Memiliki Website Profesional <span class="grad-text">untuk Bisnis Anda?</span></h2>
+      <p class="section-subtitle">Konsultasikan kebutuhan website Anda sekarang dan dapatkan solusi terbaik sesuai budget. Gratis, tanpa komitmen.</p>
+      <div class="cta-buttons">
+        <a class="btn-primary" href="https://wa.me/6283191661596?text=Halo%2C%20saya%20ingin%20konsultasi%20pembuatan%20website" target="_blank">💬 Chat WhatsApp Sekarang</a>
+        <a class="btn-secondary" href="#pricing">📦 Lihat Paket</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">Rizky Freelance</a>
+        <p>Kami membantu bisnis Indonesia tampil profesional di dunia digital melalui website WordPress berkualitas premium.</p>
+        <div class="social-links">
+          <a class="social-btn" href="#">💼</a>
+          <a class="social-btn" href="#">📸</a>
+          <a class="social-btn" href="#">🐦</a>
+          <a class="social-btn" href="#">▶️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="#services">Company Profile</a></li>
+          <li><a href="#services">Website UMKM</a></li>
+          <li><a href="#services">Landing Page</a></li>
+          <li><a href="#services">Personal Branding</a></li>
+          <li><a href="#services">Website Sekolah</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="#why">Keunggulan</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#pricing">Harga</a></li>
+          <li><a href="#process">Proses Kerja</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li><a href="https://wa.me/6283191661596" target="_blank">📱 WhatsApp</a></li>
+          <li><a href="mailto:hello@webcraft.id">📧 Email Kami</a></li>
+          <li><a href="#">📍 Indonesia</a></li>
+          <li><a href="#">⏰ Resp. < 1 Jam</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Rizky Freelance. Semua hak dilindungi.</p>
+      <p style="color:var(--muted);font-size:.82rem">Dibuat dengan ❤️ untuk bisnis Indonesia</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── LOADER ──
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 2000);
+});
+
+// ── NAVBAR SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE MENU ──
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('open');
+});
+document.getElementById('closeMenu').addEventListener('click', closeMobile);
+function closeMobile() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ── PORTFOLIO DATA ──
+const projects = [
+  { name: 'Bintang Mas Travel', cat: 'Website Travel', bg: ['#0C4A6E','#0284C7'], accent: '#38BDF8', url: 'https://bintangmas-rental.web.id/' },
+  { name: 'Bintang Mas Rental', cat: 'Website Rental Mobil', bg: ['#1E1B4B','#4338CA'], accent: '#A5B4FC', url: 'https://bintangmas-rental.web.id/portofolio/' },
+  { name: 'Jual Beli Mobil Bekas', cat: 'Website Rental Mobil', bg: ['#1A1A2E','#7C3AED'], accent: '#C4B5FD', url: 'https://bintangmas-rental.web.id/jual-bekas-mobil/' },
+  { name: 'Rental Mobil Premium', cat: 'Website Rental Mobil', bg: ['#0F172A','#2563EB'], accent: '#60A5FA', url: 'https://bintangmas-rental.web.id/landing-page-3/' },
+];
+
+const grid = document.getElementById('portfolioGrid');
+projects.forEach((p, i) => {
+  const delay = (i * 0.08).toFixed(2);
+  grid.innerHTML += `
+  <div class="portfolio-card reveal" style="transition-delay:${delay}s">
+    <div class="p-thumb">
+      <div class="p-thumb-inner" style="background:linear-gradient(135deg,${p.bg[0]},${p.bg[1]})">
+        <div class="p-bar" style="background:rgba(0,0,0,.3)">
+          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
+        </div>
+        <div class="p-content">
+          <div class="p-row" style="height:60px;background:rgba(255,255,255,.1);border-radius:8px;"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem">
+            <div class="p-row" style="height:40px;background:rgba(255,255,255,.07);border-radius:6px;"></div>
+            <div class="p-row" style="height:40px;background:rgba(255,255,255,.07);border-radius:6px;"></div>
+          </div>
+          <div class="p-row" style="height:28px;background:${p.accent}33;border-radius:6px;width:50%;"></div>
+        </div>
+      </div>
+      <div class="p-overlay">
+        <a href="${p.url}" target="_blank">🔗 Lihat Website</a>
+      </div>
+    </div>
+    <div class="p-info">
+      <div class="p-name">${p.name}</div>
+      <div class="p-cat">${p.cat}</div>
+    </div>
+  </div>`;
+});
+
+// ── TESTIMONIALS ──
+const testis = [
+  { name: 'Budi Santoso', role: 'Owner Toko Batik', color: '#2563EB', init: 'BS', text: 'Hasilnya benar-benar di luar ekspektasi saya! Website terlihat sangat profesional dan sudah mulai mendatangkan pelanggan baru dalam minggu pertama.' },
+  { name: 'Siti Rahma', role: 'CEO PT. Maju Bersama', color: '#7C3AED', init: 'SR', text: 'Tim WebCraft sangat responsif dan pengerjaan tepat waktu. Website company profile kami kini terlihat jauh lebih kredibel di mata klien.' },
+  { name: 'Dr. Andi Kurniawan', role: 'Dokter & Konsultan', color: '#059669', init: 'AK', text: 'Personal branding saya meningkat drastis setelah punya website. Banyak pasien baru yang datang karena menemukan saya melalui Google.' },
+  { name: 'Rina Dewi', role: 'Owner Online Shop', color: '#DC2626', init: 'RD', text: 'Landing page yang dibuat sangat converting! Iklan saya jauh lebih efektif sekarang. ROI-nya terasa banget dalam 2 minggu pertama.' },
+  { name: 'Pak Herman', role: 'Kepala Sekolah', color: '#0284C7', init: 'PH', text: 'Website sekolah kami kini modern dan informatif. Orang tua murid sangat terbantu dengan fitur pengumuman dan galeri kegiatan online.' },
+  { name: 'Yanti Lestari', role: 'Freelancer Design', color: '#6D28D9', init: 'YL', text: 'Proses komunikasinya enak banget, tidak pelit penjelasan. Revisinya juga ditanggapi cepat. Puas banget dan sudah rekomendasiin ke teman!' },
+];
+
+const tg = document.getElementById('testiGrid');
+testis.forEach((t, i) => {
+  const delay = (i * 0.08).toFixed(2);
+  tg.innerHTML += `
+  <div class="testi-card reveal" style="transition-delay:${delay}s">
+    <div class="stars">★★★★★</div>
+    <p class="testi-text">"${t.text}"</p>
+    <div class="testi-person">
+      <div class="avatar" style="background:${t.color}">${t.init}</div>
+      <div>
+        <div class="person-name">${t.name}</div>
+        <div class="person-role">${t.role}</div>
+      </div>
+    </div>
+  </div>`;
+});
+
+// ── FAQ ──
+const faqs = [
+  { q: 'Berapa lama waktu pengerjaan website?', a: 'Tergantung paket yang dipilih. Paket Starter selesai dalam 3–5 hari kerja, Paket Professional 7–10 hari kerja, dan Paket Business 10–14 hari kerja. Timeline bisa lebih cepat jika konten sudah siap.' },
+  { q: 'Apakah domain dan hosting sudah termasuk?', a: 'Domain dan hosting belum termasuk dalam paket karena nilainya bervariasi sesuai kebutuhan. Kami akan bantu rekomendasikan provider terbaik dan membantu proses setup-nya secara gratis.' },
+  { q: 'Berapa kali revisi yang bisa saya lakukan?', a: 'Untuk semua paket, kami menyediakan minimal 3 kali putaran revisi tanpa biaya tambahan hingga website sesuai dengan keinginan Anda.' },
+  { q: 'Apakah website bisa dioptimasi untuk SEO?', a: 'Ya! Semua paket sudah mencakup basic SEO setup (meta title, deskripsi, sitemap, struktur heading). Paket Professional dan Business mendapatkan optimasi SEO yang lebih lengkap.' },
+  { q: 'Apakah bisa bayar dengan sistem DP?', a: 'Bisa! Kami menerima pembayaran dengan sistem DP 50% di awal dan pelunasan 50% setelah website selesai dan disetujui oleh Anda sebelum di-publish.' },
+  { q: 'Apakah saya bisa update konten website sendiri?', a: 'Tentu! Website menggunakan WordPress yang sangat mudah digunakan. Kami juga menyediakan tutorial singkat cara mengelola konten, postingan, dan halaman secara mandiri.' },
+  { q: 'Apakah website aman dari serangan hacker?', a: 'Untuk Paket Business, kami menyertakan setup keamanan dasar (SSL, plugin security, login protection). Untuk paket lainnya, kami tetap menggunakan praktik terbaik WordPress.' },
+  { q: 'Apakah ada garansi setelah website selesai?', a: 'Ya, semua paket mendapatkan garansi bug dan error selama 30 hari setelah website live. Jika ada kendala teknis, kami tangani tanpa biaya tambahan.' },
+  { q: 'Bisakah website dibuat dalam bahasa Inggris atau dua bahasa?', a: 'Bisa! Kami bisa membuat website dalam bahasa Indonesia, Inggris, atau bilingual (dua bahasa). Untuk website bilingual, mungkin ada penyesuaian biaya tergantung kompleksitasnya.' },
+  { q: 'Bagaimana cara mulai order?', a: 'Sangat mudah! Klik tombol "Konsultasi WhatsApp" dan kami akan memandu Anda langkah demi langkah — mulai dari diskusi kebutuhan, pemilihan paket, hingga proses pembayaran.' },
+];
+
+const fl = document.getElementById('faqList');
+faqs.forEach((f, i) => {
+  fl.innerHTML += `
+  <div class="faq-item reveal" style="transition-delay:${(i*.04).toFixed(2)}s">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>${f.q}</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">${f.a}</div>
+  </div>`;
+});
+
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
